@@ -15,12 +15,10 @@ Add the render and parser to your django settings file.
 ```
 # ...
 REST_FRAMEWORK = {
-
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_google_json_style_api.renderers.JSONRenderer',
         # Any other renders
     ),
-
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework_google_json_style_api.parsers.JSONParser',
         # Any other parsers
@@ -32,7 +30,7 @@ REST_FRAMEWORK = {
 ##
 By default, Django REST Framework will produce a response like:
 
-```
+```json
 {
     "id": 1,
     "username": "scott",
@@ -40,13 +38,13 @@ By default, Django REST Framework will produce a response like:
 }
 ```
 
-```
+```json
 [
     {
         "id": 1,
         "username": "scott",
         "full_name": "Scott Chang"
-    }
+    },
     {
         "id": 2,
         "username": "pocheng",
@@ -57,7 +55,7 @@ By default, Django REST Framework will produce a response like:
 
 Google JSON style Guide shows a response to look like the following:
 
-```
+```json
 {
     "data": {
         "items":[
@@ -65,7 +63,7 @@ Google JSON style Guide shows a response to look like the following:
                 "id": 1,
                 "username": "scott",
                 "full_name": "Scott Chang"
-            }
+            },
             {
                 "id": 2,
                 "username": "pocheng",
