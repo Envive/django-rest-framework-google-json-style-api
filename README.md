@@ -140,7 +140,6 @@ GOOGLE_JSON_STYLE_API = {
         ]
     }
 }
- 
 ```
 
 ## Underscoreize Options
