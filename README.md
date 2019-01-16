@@ -1,5 +1,9 @@
 # Django REST Framework Google JSON Style API
 
+## Format specification
+- https://google.github.io/styleguide/jsoncstyleguide.xml
+
+
 ## Installation
 
 At the command line:
@@ -15,6 +19,9 @@ Add the render and parser to your django settings file.
 ```python
 # ...
 REST_FRAMEWORK = {
+    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 
+        'rest_framework_google_json_style_api.pagination.GoogleJsonStylePageNumberPagination',
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_google_json_style_api.renderers.JSONRenderer',
         # Any other renders
@@ -27,7 +34,7 @@ REST_FRAMEWORK = {
 # ...
 ```
 
-##
+## Goals
 By default, Django REST Framework will produce a response like:
 
 ```json
@@ -100,6 +107,38 @@ GOOGLE_JSON_STYLE_API = {
     # ...
     'CAMELIZE': False
     # ...
+}
+```
+
+## Pagination
+```json
+{
+    "method": "list",
+    "params": {
+        "page": "1",
+        "pageSize": "2"
+    },
+    "data": {
+        "currentItemCount": 2,
+        "itemsPerPage": 2,
+        "totalItems": 200,
+        "pageIndex": 1,
+        "totalPages": 100,
+        "nextLink": "http://example.com/api/v1/?page=2&page_size=2",
+        "previousLink": null,
+        "items": [
+            {
+                "id": 1,
+                "username": "scott",
+                "fullName": "Scott Chang"
+            },
+            {
+                "id": 2,
+                "username": "pocheng",
+                "fullName": "Pocheng Huang"
+            }
+        ]
+    }
 }
 ```
 
