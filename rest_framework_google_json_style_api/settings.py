@@ -8,6 +8,7 @@ USER_SETTINGS = getattr(settings, 'GOOGLE_JSON_STYLE_API', {})
 DEFAULTS = {
     'RENDERER_CLASS': 'rest_framework.renderers.JSONRenderer',
     'PARSER_CLASS': 'rest_framework.parsers.JSONParser',
+    'CAMELIZE': True,
     'JSON_UNDERSCOREIZE': {
         'no_underscore_before_number': False,
     },

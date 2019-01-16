@@ -13,6 +13,6 @@ setup(
     install_requires=[
         'django',
         'django-rest-framework',
-        'djangorestframework-camel-case',
+        'django-rest-framework-camel-case',
     ]
 )
