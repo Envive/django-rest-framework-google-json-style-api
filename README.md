@@ -12,7 +12,7 @@ $ python setup.py install
 
 Add the render and parser to your django settings file.
 
-```
+```python
 # ...
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
