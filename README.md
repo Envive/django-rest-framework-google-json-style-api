@@ -118,7 +118,7 @@ v2Counter -> v2_counter
 fooBar2 -> foo_bar2
 ```
 
-By default, the package uses the first case. To use the second case, specify it in your django settings file.
+By default, the package uses the first case. To use the second case, specify it in your django settings file. The setting only works when you use camel case(default).
 
 ```python
 GOOGLE_JSON_STYLE_API = {
