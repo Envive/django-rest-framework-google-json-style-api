@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from djangorestframework_camel_case.util import camelize
+from django_rest_framework_camel_case.util import camelize
 
 from rest_framework_google_json_style_api.settings import api_settings
 
@@ -19,4 +19,6 @@ class JSONRenderer(api_settings.RENDERER_CLASS):
         render_data['data'] = {
             'items': data if type(data) == list else [data]
         }
-        return super(JSONRenderer, self).render(camelize(render_data), *args, **kwargs)
+        if api_settings.CAMELIZE:
+            render_data = camelize(render_data)
+        return super(JSONRenderer, self).render(render_data, *args, **kwargs)

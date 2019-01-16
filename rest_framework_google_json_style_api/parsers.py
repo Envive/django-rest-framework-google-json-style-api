@@ -2,7 +2,7 @@ import json
 
 from django.conf import settings
 
-from djangorestframework_camel_case.util import underscoreize
+from django_rest_framework_camel_case.util import underscoreize
 
 from rest_framework.parsers import ParseError, six
 
@@ -16,9 +16,11 @@ class JSONParser(api_settings.PARSER_CLASS):
 
         try:
             data = stream.read().decode(encoding)
-            return underscoreize(
-                json.loads(data)['data']['items'],
-                **api_settings.JSON_UNDERSCOREIZE
-            )
+            if api_settings.CAMELIZE:
+                data = underscoreize(
+                    json.loads(data)['data']['items'],
+                    **api_settings.JSON_UNDERSCOREIZE
+                )
+            return data
         except ValueError as exc:
             raise ParseError('JSON parse error - %s' % six.text_type(exc))
