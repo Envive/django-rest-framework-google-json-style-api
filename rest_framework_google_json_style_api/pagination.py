@@ -15,7 +15,7 @@ class GoogleJsonStylePageNumberPagination(PageNumberPagination):
         return Response(
             OrderedDict([
                 ('current_item_count', len(data)),
-                ('itemsPerPage', self.page_size),
+                ('items_per_page', self.page.paginator.per_page),
                 ('total_items', self.page.paginator.count),
                 ('page_index', self.page.number),
                 ('total_pages', self.page.paginator.num_pages),
