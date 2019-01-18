@@ -15,10 +15,10 @@ class JSONParser(api_settings.PARSER_CLASS):
         encoding = parser_context.get('encoding', settings.DEFAULT_CHARSET)
 
         try:
-            data = stream.read().decode(encoding)
+            data = json.loads(stream.read().decode(encoding))
             if api_settings.CAMELIZE:
                 data = underscoreize(
-                    json.loads(data)['data']['items'],
+                    data['data']['items'][0] if data['data']['items'] else {},
                     **api_settings.JSON_UNDERSCOREIZE
                 )
             return data
