@@ -21,7 +21,7 @@ class JSONRenderer(api_settings.RENDERER_CLASS):
             serialize_data = data
         else:
             serialize_data = {
-                'items': data if type(data) == list else [data]
+                'items': data if issubclass(type(data), list) else [data]
             }
 
         render_data = OrderedDict()
