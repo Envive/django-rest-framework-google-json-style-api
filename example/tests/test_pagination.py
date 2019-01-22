@@ -21,7 +21,6 @@ class ModelViewSetTests(TestBase):
 
     def test_list_result(self):
         response = self.client.get(self.list_url)
-        self.assertEqual(response.status_code, 200)
 
         user_all = Ｕser.objects.all()
         expected = {
@@ -38,11 +37,11 @@ class ModelViewSetTests(TestBase):
             }
         }
 
-        assert expected == response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
 
     def test_retrieve_result(self):
         response = self.client.get(self.detail_url)
-        self.assertEqual(response.status_code, 200)
 
         user = Ｕser.objects.get(pk=self.scott.pk)
         expected = {
@@ -61,12 +60,12 @@ class ModelViewSetTests(TestBase):
             }
         }
 
-        assert expected == response.json()
-    
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
+
     def test_pagination_one_result(self):
         UserViewSet.pagination_class = GoogleJsonStylePageNumberPagination
         response = self.client.get(self.list_url, {'page_size': 1})
-        self.assertEqual(response.status_code, 200)
 
         user = Ｕser.objects.all().order_by('pk')[0]
         expected = {
@@ -92,12 +91,12 @@ class ModelViewSetTests(TestBase):
             }
         }
 
-        assert expected == response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
 
     def test_pagination_two_result(self):
         UserViewSet.pagination_class = GoogleJsonStylePageNumberPagination
         response = self.client.get(self.list_url, {'page_size': 2})
-        self.assertEqual(response.status_code, 200)
 
         user_all = Ｕser.objects.all().order_by('pk')
         expected = {
@@ -123,4 +122,5 @@ class ModelViewSetTests(TestBase):
             }
         }
 
-        assert expected == response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
