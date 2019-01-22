@@ -15,5 +15,15 @@ setup(
         'django',
         'django-rest-framework',
         'django-rest-framework-camel-case',
+    ],
+    setup_requires=[
+        'pytest-runner',
+    ],
+    tests_require=[
+        'django-debug-toolbar',
+        'pytest',
+        'pytest_django',
+        'pytest_factoryboy',
+        'pytest-cov',
     ]
 )
