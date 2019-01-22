@@ -1,5 +1,7 @@
 # Django REST Framework Google JSON Style API
 
+[![codecov.io](https://codecov.io/github/codecov/django-rest-framework-google-json-style-api/coverage.svg?branch=master)](https://codecov.io/github/codecov/django-rest-framework-google-json-style-api)
+
 ## Format specification
 - https://google.github.io/styleguide/jsoncstyleguide.xml
 
