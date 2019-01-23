@@ -14,18 +14,20 @@ class JSONRenderer(api_settings.RENDERER_CLASS):
             renderer_context.get('request').query_params.items()
         )
 
-        if data and 'results' in data:
-            # Pagination
-            data['items'] = data['results']
-            data.pop('results', None)
-            serialize_data = data
-        else:
-            if not data:
-                serialize_data = {'items': []}
-            elif issubclass(type(data), list):
-                serialize_data = {'items': data}
+        serialize_data = OrderedDict()
+        if data:
+            if 'meta' in data:
+                serialize_data.update(data['meta'])
+                data.pop('meta', None)
+
+            if 'results' in data:
+                data['items'] = data['results']
+                data.pop('results', None)
+                serialize_data.update(data)
             else:
-                serialize_data = {'items': [data]}
+                serialize_data['items'] = data if issubclass(type(data), list) else [data]
+        else:
+            serialize_data['items'] = []
 
         render_data = OrderedDict()
         render_data['method'] = renderer_context.get('view').action
