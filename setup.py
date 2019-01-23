@@ -10,9 +10,20 @@ setup(
     url='http://www.enviveus.com',
     packages=find_packages(),
     package_data={'rest_framework_google_json_style_api': []},
+    test_suite="example.settings.test",
     install_requires=[
         'django',
         'django-rest-framework',
         'django-rest-framework-camel-case',
+    ],
+    setup_requires=[
+        'pytest-runner',
+    ],
+    tests_require=[
+        'django-debug-toolbar',
+        'pytest',
+        'pytest_django',
+        'pytest_factoryboy',
+        'pytest-cov',
     ]
 )
