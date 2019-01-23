@@ -4,7 +4,7 @@ from django_rest_framework_camel_case.util import camelize
 
 from rest_framework_google_json_style_api.settings import api_settings
 
-from . import utils
+from rest_framework_google_json_style_api import utils
 
 
 class JSONRenderer(api_settings.RENDERER_CLASS):
