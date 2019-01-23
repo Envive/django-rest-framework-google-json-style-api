@@ -36,20 +36,29 @@ def format_errors(data, accepted_media_type, renderer_context):
         }
     }
     """
+    def integrate_domains(domains):
+        return ".".join(filter(None, domains))
 
-    errors = []
-    for domain in data:
-        error = data[domain]
-        if domain == 'detail':
-            domain = 'global'
-            error = [error]
-        for e in error:
-            errors.append({
-                'domain': domain,
-                'reason': e.code,
-                'message': str(e)
-            })
+    def process_errors(data, parent_domain=""):
+        errors = []
+        for domain in data:
+            error = data[domain]
+            if domain == 'detail':
+                domain = 'global'
+                error = [error]
+            integrated_domain = integrate_domains([parent_domain, domain])
+            for e in error:
+                if isinstance(e, dict):
+                    errors.extend(process_errors(e, integrated_domain))
+                else:
+                    errors.append({
+                        'domain': integrated_domain,
+                        'reason': e.code,
+                        'message': str(e)
+                    })
+        return errors
 
+    errors = process_errors(data)
     render_data = OrderedDict()
     render_data['error'] = OrderedDict([
         ('code', renderer_context.get('view').response.status_code),
