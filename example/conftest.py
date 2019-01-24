@@ -17,9 +17,20 @@ register(CommentFactory)
 
 
 @pytest.fixture
-def single_author(author_factory, book_factory, comment_factory):
+def book_with_single_author(author_factory, book_factory, comment_factory):
     author = author_factory()
     book = book_factory(authors=(author,))
+    comment_factory(book=book)
+    return book
+
+
+@pytest.fixture
+def book_with_multi_author(author_factory, book_factory, comment_factory):
+    authors = [
+        author_factory(),
+        author_factory(),
+    ]
+    book = book_factory(authors=authors)
     comment_factory(book=book)
     return book
 
@@ -30,6 +41,9 @@ def multi_author(author_factory, book_factory, comment_factory):
         author_factory(),
         author_factory(),
     ]
-    book = book_factory(authors=authors)
-    comment_factory(book=book)
-    return book
+
+    book_factory(authors=authors),
+    book_factory(authors=(authors[0],)),
+    book_factory(authors=(authors[1],)),
+
+    return authors
