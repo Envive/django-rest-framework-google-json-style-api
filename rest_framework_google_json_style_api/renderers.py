@@ -34,7 +34,7 @@ class JSONRenderer(api_settings.RENDERER_CLASS):
                 serialize_data = {'items': [data]}
 
         render_data = OrderedDict()
-        render_data['method'] = renderer_context.get('view').action
+        render_data['method'] = getattr(renderer_context.get('view'), 'action', 'null')
         render_data['params'] = google_style_params
         render_data['data'] = serialize_data
 
