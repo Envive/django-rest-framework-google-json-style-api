@@ -3,17 +3,26 @@ from setuptools import setup, find_packages
 
 setup(
     name='rest_framework_google_json_style_api',
-    version='0.0.1',
+    version='0.1.1',
     description="Make Google Json Style and Django Rest Framework play nice together.",
     author="Pocheng, Scott",
-    author_email='phuang@enviveus.com, schang@enviveus.com',
-    url='http://www.enviveus.com',
+    author_email='pcghuang@gmail.com, scott820914@gmail.com',
+    url='https://github.com/Envive',
+    license='BSD License',
     packages=find_packages(),
     package_data={'rest_framework_google_json_style_api': []},
     test_suite="example.settings.test",
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Operating System :: OS Independent',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+    ],
     install_requires=[
         'django',
-        'django-rest-framework',
+        'djangorestframework',
         'django-rest-framework-camel-case',
         'inflection'
     ],
