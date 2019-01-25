@@ -15,6 +15,7 @@ setup(
         'django',
         'django-rest-framework',
         'django-rest-framework-camel-case',
+        'inflection'
     ],
     setup_requires=[
         'pytest-runner',
