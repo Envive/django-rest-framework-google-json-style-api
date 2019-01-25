@@ -1,5 +1,8 @@
 from collections import OrderedDict
 
+import inflection
+from rest_framework_google_json_style_api.settings import api_settings
+
 
 def is_error_response(context):
     """
@@ -37,7 +40,10 @@ def format_errors(data, accepted_media_type, renderer_context):
     }
     """
     def integrate_domains(domains):
-        return ".".join(filter(None, domains))
+        domains = filter(None, domains)
+        if api_settings.CAMELIZE:
+            domains = [inflection.camelize(domain, False) for domain in domains]
+        return ".".join(domains)
 
     def process_errors(data, parent_domain=""):
         errors = []
