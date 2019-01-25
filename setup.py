@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='rest_framework_google_json_style_api',
+    name='django-rest-framework-google-json-style-api',
     version='0.1.1',
     description="Make Google Json Style and Django Rest Framework play nice together.",
     author="Pocheng, Scott",
