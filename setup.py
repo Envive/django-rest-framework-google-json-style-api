@@ -5,6 +5,7 @@ setup(
     name='django-rest-framework-google-json-style-api',
     version='0.1.1',
     description="Make Google Json Style and Django Rest Framework play nice together.",
+    long_description=open('README.md').read(),
     author="Pocheng, Scott",
     author_email='pcghuang@gmail.com, scott820914@gmail.com',
     url='https://github.com/Envive',

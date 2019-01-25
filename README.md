@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/Envive/django-rest-framework-google-json-style-api.svg?branch=master)](https://travis-ci.com/Envive/django-rest-framework-google-json-style-api) 
 [![codecov.io](https://codecov.io/github/envive/django-rest-framework-google-json-style-api/coverage.svg?branch=master)](https://codecov.io/github/envive/django-rest-framework-google-json-style-api)
+[![PyPI version](https://badge.fury.io/py/django-rest-framework-google-json-style-api.svg)](https://badge.fury.io/py/django-rest-framework-google-json-style-api)
 
 ## Format specification
 - https://google.github.io/styleguide/jsoncstyleguide.xml
@@ -11,9 +12,7 @@
 At the command line:
 
 ```
-$ git clone https://github.com/Envive/django-rest-framework-google-json-style-api.git
-$ cd django-rest-framework-google-json-style-api
-$ python setup.py install
+$ pip install django-rest-framework-google-json-style-api
 ```
 
 Add the render and parser to your django settings file.
