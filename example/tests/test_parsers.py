@@ -1,10 +1,12 @@
 import json
 from io import BytesIO
 
+import pytest
 from django.test import TestCase
+from rest_framework.exceptions import ParseError
 
+from example.tests.utils import override_setting
 from rest_framework_google_json_style_api.parsers import JSONParser
-from rest_framework_google_json_style_api.settings import api_settings
 
 
 class TestJSONParser(TestCase):
@@ -34,18 +36,30 @@ class TestJSONParser(TestCase):
 
         self.string = json.dumps(data)
 
+    @override_setting(CAMELIZE=True)
     def test_parse_with_camelize(self):
-        api_settings.CAMELIZE = True
         stream = BytesIO(self.string.encode('utf-8'))
         data = self.parser.parse(stream, None, self.parser_context)
 
         self.assertEqual(data['item_key'], 'value')
         self.assertEqual(data['attr_key'], 'attr')
 
+    @override_setting(CAMELIZE=False)
     def test_parse_without_camelize(self):
-        api_settings.CAMELIZE = False
         stream = BytesIO(self.string.encode('utf-8'))
         data = self.parser.parse(stream, None, self.parser_context)
 
         self.assertEqual(data['itemKey'], 'value')
         self.assertEqual(data['attrKey'], 'attr')
+
+    def test_parse_error(self):
+        with pytest.raises(ParseError):
+            string = 'Error'
+            stream = BytesIO(string.encode('utf-8'))
+            self.parser.parse(stream, None, self.parser_context)
+
+    def test_key_error(self):
+        with pytest.raises(ParseError):
+            string = json.dumps({'key': 'value'})
+            stream = BytesIO(string.encode('utf-8'))
+            self.parser.parse(stream, None, self.parser_context)

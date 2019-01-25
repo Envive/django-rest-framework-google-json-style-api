@@ -1,9 +1,11 @@
 import json
+
+import pytest
 from django.urls import reverse
 
-from example.tests import TestBase
-
 from example.factories import AuthorFactory, BookFactory
+from example.tests import TestBase
+from example.tests.utils import override_setting
 
 
 class TestModelViewSet(TestBase):
@@ -22,7 +24,10 @@ class TestModelViewSet(TestBase):
                         'title': self.new_title,
                         'authors': [
                             {
-                                'name': self.new_author.name
+                                'name': self.new_author.name,
+                                'authorType': {
+                                    'name': self.new_author.author_type.name,
+                                }
                             }
                         ],
                         'comments': []
@@ -44,12 +49,12 @@ class TestModelViewSet(TestBase):
         self.assertEqual(response.json(), expected)
         self.assertEqual(response.status_code, 200)
 
+    @override_setting(CAMELIZE=False)
     def test_update_without_full_keys(self):
         post_data = {
             'data': {
                 'items': [
                     {
-                        'title': self.new_title,
                         'authors': [
                             {
                                 'name': self.new_author.name
@@ -59,11 +64,35 @@ class TestModelViewSet(TestBase):
                 ]
             }
         }
+        expected = {
+            'error': {
+                'code': 400,
+                'message': 'This field is required.',
+                'errors': [
+                    {
+                        'domain': 'title',
+                        'reason': 'required',
+                        'message': 'This field is required.'
+                    },
+                    {
+                        'domain': 'authors.author_type',
+                        'reason': 'required',
+                        'message': 'This field is required.'
+                    },
+                    {
+                        'domain': 'comments',
+                        'reason': 'required',
+                        'message': 'This field is required.'
+                    },
+                ]
+            }
+        }
 
         response = self.client.put(self.detail_url, data=post_data, format='json')
 
         # Bad Request. Some fields are required.
         self.assertEqual(400, response.status_code)
+        self.assertEqual(response.json(), expected)
 
     def test_partial_update(self):
         post_data = {
@@ -73,7 +102,10 @@ class TestModelViewSet(TestBase):
                         'title': self.new_title,
                         'authors': [
                             {
-                                'name': self.new_author.name
+                                'name': self.new_author.name,
+                                'authorType': {
+                                    'name': self.new_author.author_type.name,
+                                }
                             }
                         ]
                     }
@@ -109,3 +141,30 @@ class TestModelViewSet(TestBase):
 
         self.assertEqual(json.loads(response.rendered_content), expected)
         self.assertEqual(response.status_code, 204)
+
+    def test_parser_error(self):
+        post_data = {
+            'key': 'value',
+        }
+        expected = {
+            'error': {
+                'code': 400,
+                'message': "JSON parse error - 'data'",
+                'errors': [
+                    {
+                        'domain': 'global',
+                        'reason': 'parse_error',
+                        'message': "JSON parse error - 'data'"
+                    }
+                ]
+            }
+        }
+
+        response = self.client.put(self.detail_url, data=post_data, format='json')
+
+        self.assertEqual(response.json(), expected)
+        self.assertEqual(response.status_code, 400)
+
+    def test_no_status_code(self):
+        with pytest.raises(AttributeError):
+            self.client.get('/no_status', format='json')
