@@ -144,6 +144,51 @@ GOOGLE_JSON_STYLE_API = {
 }
 ```
 
+## Attach meta to data object
+
+#### Example
+Let's add the count of items in the data object.
+
+```python
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    # ...
+
+    def list(self, request, *args, **kwargs):
+        response = super(AuthorViewSet, self).list(request, *args, **kwargs)
+        response.data = {
+            'meta': {
+                # Add meta data in here
+                'num_items': self.queryset.count(),
+            },
+            # Keep original data in results
+            'results': response.data
+        }
+```
+
+#### Response
+
+```json
+{
+    "data": {
+        "numItems": 2,
+        "items":[
+            {
+                "id": 1,
+                "username": "scott",
+                "fullName": "Scott Chang"
+            },
+            {
+                "id": 2,
+                "username": "pocheng",
+                "fullName": "Pocheng Huang"
+            }
+        ]
+    }
+}
+```
+
+
 ## Underscoreize Options
 There are two conventions of snake case.
 
