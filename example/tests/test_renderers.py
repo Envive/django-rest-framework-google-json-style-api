@@ -15,13 +15,19 @@ def test_multiple_author(book_with_multi_author, client):
                         'title': book_with_multi_author.title,
                         'authors': [
                             {
-                                'name': author.name
+                                'name': author.name,
+                                'authorType': {
+                                    'name': author.author_type.name,
+                                }
                             } for author in book_with_multi_author.authors.all()
                         ],
                         'comments': [
                             {
                                 'author': {
-                                    'name': comment.author.name
+                                    'name': comment.author.name,
+                                    'authorType': {
+                                        'name': comment.author.author_type.name,
+                                    }
                                 },
                                 'body': comment.body,
                             } for comment in book_with_multi_author.comments.all()
@@ -42,10 +48,13 @@ def test_author_with_meta(multi_author, client):
             'method': 'list',
             'params': {},
             'data': {
-                'num_author': len(multi_author),
+                'numAuthor': len(multi_author),
                 'items': [
                     {
                         'name': author.name,
+                        'authorType': {
+                            'name': author.author_type.name,
+                        }
                     } for author in multi_author
                 ]
             }

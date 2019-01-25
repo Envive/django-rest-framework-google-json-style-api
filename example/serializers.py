@@ -43,10 +43,11 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class AuthorNameSerializer(serializers.ModelSerializer):
+    author_type = AuthorTypeSerializer()
 
     class Meta:
         model = Author
-        fields = ('name',)
+        fields = ('name', 'author_type')
 
 
 class CommentSerializer(serializers.ModelSerializer):

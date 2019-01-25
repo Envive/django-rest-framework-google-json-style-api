@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from example.models import Author, Book
 from example.serializers import (
@@ -44,4 +46,12 @@ class AuthorViewSet(viewsets.ModelViewSet):
             },
             'results': response.data
         }
+        return response
+
+
+class NoStatusCodeView(APIView):
+
+    def get(self, request, format=None):
+        response = Response()
+        del response.status_code
         return response
