@@ -23,5 +23,5 @@ class JSONParser(api_settings.PARSER_CLASS):
                     **api_settings.JSON_UNDERSCOREIZE
                 )
             return data
-        except ValueError as exc:
+        except (ValueError, TypeError, KeyError) as exc:
             raise ParseError('JSON parse error - %s' % six.text_type(exc))

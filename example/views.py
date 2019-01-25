@@ -2,8 +2,12 @@ from django.contrib.auth.models import User
 
 from rest_framework import viewsets
 
-from example.serializers import UserSerializers, BookSerializer
-from example.models import Book
+from example.models import Author, Book
+from example.serializers import (
+    AuthorNameSerializer,
+    BookSerializer,
+    UserSerializers
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -24,3 +28,20 @@ class BookViewSet(viewsets.ModelViewSet):
             return Book.objects.exclude(pk=entry_pk).first()
 
         return super(BookViewSet, self).get_object()
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+
+    def get_serializer_class(self):
+        return AuthorNameSerializer
+
+    def list(self, request, *args, **kwargs):
+        response = super(AuthorViewSet, self).list(request, *args, **kwargs)
+        response.data = {
+            'meta': {
+                'num_author': self.queryset.count(),
+            },
+            'results': response.data
+        }
+        return response
