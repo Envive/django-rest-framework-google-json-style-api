@@ -31,9 +31,12 @@ class JSONRenderer(api_settings.RENDERER_CLASS):
                 data.pop('results', None)
                 serialize_data.update(data)
             else:
-                serialize_data['items'] = data if issubclass(type(data), list) else [data]
+                if issubclass(type(data), list):
+                    serialize_data['items'] = data
+                else:
+                    serialize_data = data
         else:
-            serialize_data['items'] = []
+            serialize_data = {}
 
         render_data = OrderedDict()
         render_data['method'] = getattr(renderer_context.get('view'), 'action', 'null')

@@ -25,12 +25,8 @@ class TestJSONParser(TestCase):
             'method': 'create',
             'params': {},
             'data': {
-                'items': [
-                    {
-                        'itemKey': 'value',
-                        'attrKey': 'attr'
-                    }
-                ]
+                'itemKey': 'value',
+                'attrKey': 'attr'
             }
         }
 

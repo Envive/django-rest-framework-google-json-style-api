@@ -16,7 +16,7 @@ class JSONParser(api_settings.PARSER_CLASS):
 
         try:
             data = json.loads(stream.read().decode(encoding))
-            data = data['data']['items'][0] if data['data']['items'] else {}
+            data = data['data']
             if api_settings.CAMELIZE:
                 data = underscoreize(
                     data,

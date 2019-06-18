@@ -50,13 +50,9 @@ class ModelViewSetTests(TestBase):
                 'pk': str(self.scott.pk)
             },
             'data': {
-                'items': [
-                    {
-                        'firstName': user.first_name,
-                        'lastName': user.last_name,
-                        'email': user.email
-                    }
-                ]
+                'firstName': user.first_name,
+                'lastName': user.last_name,
+                'email': user.email
             }
         }
 

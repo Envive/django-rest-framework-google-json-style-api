@@ -19,20 +19,16 @@ class TestModelViewSet(TestBase):
     def test_update(self):
         post_data = {
             'data': {
-                'items': [
+                'title': self.new_title,
+                'authors': [
                     {
-                        'title': self.new_title,
-                        'authors': [
-                            {
-                                'name': self.new_author.name,
-                                'authorType': {
-                                    'name': self.new_author.author_type.name,
-                                }
-                            }
-                        ],
-                        'comments': []
+                        'name': self.new_author.name,
+                        'authorType': {
+                            'name': self.new_author.author_type.name,
+                        }
                     }
-                ]
+                ],
+                'comments': []
             }
         }
 
@@ -53,13 +49,9 @@ class TestModelViewSet(TestBase):
     def test_update_without_full_keys(self):
         post_data = {
             'data': {
-                'items': [
+                'authors': [
                     {
-                        'authors': [
-                            {
-                                'name': self.new_author.name
-                            }
-                        ]
+                        'name': self.new_author.name
                     }
                 ]
             }
@@ -97,17 +89,13 @@ class TestModelViewSet(TestBase):
     def test_partial_update(self):
         post_data = {
             'data': {
-                'items': [
+                'title': self.new_title,
+                'authors': [
                     {
-                        'title': self.new_title,
-                        'authors': [
-                            {
-                                'name': self.new_author.name,
-                                'authorType': {
-                                    'name': self.new_author.author_type.name,
-                                }
-                            }
-                        ]
+                        'name': self.new_author.name,
+                        'authorType': {
+                            'name': self.new_author.author_type.name,
+                        }
                     }
                 ]
             }
@@ -119,7 +107,7 @@ class TestModelViewSet(TestBase):
             },
             'data': post_data['data']
         }
-        expected['data']['items'][0]['comments'] = []
+        expected['data']['comments'] = []
 
         response = self.client.patch(self.detail_url, data=post_data, format='json')
 
@@ -132,9 +120,7 @@ class TestModelViewSet(TestBase):
             'params': {
                 'pk': str(self.book.pk),
             },
-            'data': {
-                'items': []
-            }
+            'data': {}
         }
 
         response = self.client.delete(self.detail_url, format='json')
