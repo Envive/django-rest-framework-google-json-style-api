@@ -68,13 +68,9 @@ Google JSON Style Guide shows a response to look like the following:
 ```json
 {
     "data": {
-        "items":[
-            {
-                "id": 1,
-                "username": "scott",
-                "fullName": "Scott Chang"
-            }
-        ]
+        "id": 1,
+        "username": "scott",
+        "fullName": "Scott Chang"
     }
 }
 ```
