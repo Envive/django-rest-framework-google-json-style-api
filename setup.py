@@ -3,9 +3,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-rest-framework-google-json-style-api',
-    version='0.1.1',
+    version='1.0.0',
     description="Make Google Json Style and Django Rest Framework play nice together.",
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     author="Pocheng, Scott",
     author_email='pcghuang@gmail.com, scott820914@gmail.com',
     url='https://github.com/Envive',
