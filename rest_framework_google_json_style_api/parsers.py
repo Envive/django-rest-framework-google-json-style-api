@@ -1,6 +1,5 @@
 import json
 
-import six
 from django.conf import settings
 from django_rest_framework_camel_case.util import underscoreize
 from rest_framework.parsers import ParseError
@@ -22,4 +21,4 @@ class JSONParser(api_settings.PARSER_CLASS):
                 )
             return data
         except (ValueError, TypeError, KeyError) as exc:
-            raise ParseError('JSON parse error - %s' % six.text_type(exc))
+            raise ParseError('JSON parse error - %s' % str(exc))
