@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
+import rest_framework_google_json_style_api
+from setuptools import find_packages, setup
 
 setup(
     name='django-rest-framework-google-json-style-api',
-    version='1.0.0',
+    version=rest_framework_google_json_style_api.__version__,
     description="Make Google Json Style and Django Rest Framework play nice together.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
