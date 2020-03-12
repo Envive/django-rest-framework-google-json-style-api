@@ -20,23 +20,4 @@ IMPORT_STRINGS = (
     'PARSER_CLASS'
 )
 
-VALID_SETTINGS = {
-    'RENDERER_CLASS': (
-        'rest_framework.renderers.JSONRenderer',
-    ),
-    'PARSER_CLASS': (
-        'rest_framework.parsers.JSONParser',
-    )
-}
-
-
-def validate_settings(input_settings, valid_settings):
-    for setting_name, valid_values in valid_settings.items():
-        input_setting = input_settings.get(setting_name)
-        if input_setting and input_setting not in valid_values:
-            raise ImproperlyConfigured(setting_name)
-
-
-validate_settings(USER_SETTINGS, VALID_SETTINGS)
-
 api_settings = APISettings(USER_SETTINGS, DEFAULTS, IMPORT_STRINGS)
