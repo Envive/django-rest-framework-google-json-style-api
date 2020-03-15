@@ -5,10 +5,6 @@ from rest_framework.views import Response
 
 
 class GoogleJsonStylePageNumberPagination(PageNumberPagination):
-    page_query_param = 'page'
-    page_size_query_param = 'page_size'
-    page_size = 10
-    max_page_size = 100
 
     def get_paginated_response(self, data):
 
