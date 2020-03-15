@@ -13,6 +13,8 @@ from example.serializers import (
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    page_size_query_param = 'page_size'
+
     queryset = User.objects.order_by('pk').all()
     serializer_class = UserSerializers
 
