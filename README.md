@@ -21,7 +21,7 @@ Add the render and parser to your django settings file.
 # ...
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
-    'DEFAULT_PAGINATION_CLASS': 
+    'DEFAULT_PAGINATION_CLASS':
         'rest_framework_google_json_style_api.pagination.GoogleJsonStylePageNumberPagination',
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_google_json_style_api.renderers.JSONRenderer',

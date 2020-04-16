@@ -8,7 +8,7 @@ from rest_framework_google_json_style_api.pagination import (
     GoogleJsonStylePageNumberPagination
 )
 
-Ｕser = get_user_model()
+User = get_user_model()
 
 
 class ModelViewSetTests(TestBase):
@@ -22,7 +22,7 @@ class ModelViewSetTests(TestBase):
     def test_list_result(self):
         response = self.client.get(self.list_url)
 
-        user_all = Ｕser.objects.all()
+        user_all = User.objects.all()
         expected = {
             'method': 'list',
             'params': {},
@@ -43,7 +43,7 @@ class ModelViewSetTests(TestBase):
     def test_retrieve_result(self):
         response = self.client.get(self.detail_url)
 
-        user = Ｕser.objects.get(pk=self.scott.pk)
+        user = User.objects.get(pk=self.scott.pk)
         expected = {
             'method': 'retrieve',
             'params': {
@@ -63,7 +63,7 @@ class ModelViewSetTests(TestBase):
         UserViewSet.pagination_class = GoogleJsonStylePageNumberPagination
         response = self.client.get(self.list_url, {'page_size': 1})
 
-        user = Ｕser.objects.all().order_by('pk')[0]
+        user = User.objects.all().order_by('pk')[0]
         expected = {
             'method': 'list',
             'params': {
@@ -91,10 +91,13 @@ class ModelViewSetTests(TestBase):
         self.assertEqual(response.json(), expected)
 
     def test_pagination_two_result(self):
-        UserViewSet.pagination_class = GoogleJsonStylePageNumberPagination
+        class ExamplePagination(GoogleJsonStylePageNumberPagination):
+            page_size_query_param = 'page_size'
+
+        UserViewSet.pagination_class = ExamplePagination
         response = self.client.get(self.list_url, {'page_size': 2})
 
-        user_all = Ｕser.objects.all().order_by('pk')
+        user_all = User.objects.all().order_by('pk')
         expected = {
             'method': 'list',
             'params': {

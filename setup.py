@@ -34,7 +34,7 @@ setup(
     ],
     tests_require=[
         'django-debug-toolbar',
-        'pytest',
+        'pytest==4.3.1',
         'pytest_django',
         'pytest_factoryboy',
         'pytest-cov',
