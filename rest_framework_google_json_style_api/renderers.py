@@ -21,7 +21,7 @@ class JSONRenderer(api_settings.RENDERER_CLASS):
         )
 
         serialize_data = OrderedDict()
-        if data:
+        if data is not None:
             if 'meta' in data:
                 serialize_data.update(data['meta'])
                 data.pop('meta', None)
