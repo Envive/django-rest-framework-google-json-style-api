@@ -57,11 +57,14 @@ def format_errors(data, accepted_media_type, renderer_context):
                 if isinstance(e, dict):
                     errors.extend(process_errors(e, integrated_domain))
                 else:
-                    errors.append({
-                        'domain': integrated_domain,
-                        'reason': e.code,
-                        'message': str(e)
-                    })
+                    try:
+                        errors.append({
+                            'domain': integrated_domain,
+                            'reason': e.code,
+                            'message': str(e)
+                        })
+                    except AttributeError as e:
+                        pass
         return errors
 
     errors = process_errors(data)
